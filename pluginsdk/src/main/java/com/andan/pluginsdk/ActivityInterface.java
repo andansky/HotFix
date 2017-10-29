@@ -1,5 +1,6 @@
 package com.andan.pluginsdk;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -21,6 +22,7 @@ public interface ActivityInterface {
     public void onPause();
     public void onStop();
     public void onDestroy();
+    public FragmentManager getFragmentManager();
 //    public void attach(Activity proxyActivity, DLPluginPackage pluginPackage);
     public void onSaveInstanceState(Bundle outState);
     public void onNewIntent(Intent intent);

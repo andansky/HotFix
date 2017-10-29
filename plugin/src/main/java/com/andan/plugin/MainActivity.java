@@ -1,14 +1,19 @@
 package com.andan.plugin;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.andan.pluginsdk.BasePluginActivity;
+
+public class MainActivity extends BasePluginActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        TextView tv = new TextView(this);
+        tv.setText("这是插件一的Activity");
+        setContentView(tv);
+        setContentView(tv);
     }
 
 
