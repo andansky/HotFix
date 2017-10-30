@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * Created by nongyudi on 2017/10/29.
@@ -28,7 +29,9 @@ public class BasePluginActivity extends AppCompatActivity implements ActivityInt
     }
 
     public Activity getActivity(){
+        Log.e("isProxyMode",isProxyMode+"");
         if(isProxyMode&&proxyActivity!=null){
+            Log.e("proxyActivity",proxyActivity.getClass().getName());
             return proxyActivity;
         }else{
             return this;
@@ -47,8 +50,6 @@ public class BasePluginActivity extends AppCompatActivity implements ActivityInt
     public void onCreate(Bundle savedInstanceState) {
         if(!isProxyMode){
             super.onCreate(savedInstanceState);
-        }else{
-            ((ActivityInterface)proxyActivity).onCreate(savedInstanceState);
         }
     }
 
