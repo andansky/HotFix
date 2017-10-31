@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 /**
  * Created by nongyudi on 2017/10/29.
@@ -45,6 +46,14 @@ public class BasePluginActivity extends AppCompatActivity implements ActivityInt
         }
     }
 
+    @Override
+    public void setContentView(View view) {
+        if(!isProxyMode){
+            super.setContentView(view);
+        }else{
+            proxyActivity.setContentView(view);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
