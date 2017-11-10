@@ -39,4 +39,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':loglib')
     compile project(':pluginsdk')
+    compile project(':EventBus')
 }

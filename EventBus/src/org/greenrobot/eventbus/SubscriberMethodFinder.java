@@ -43,6 +43,7 @@ class SubscriberMethodFinder {
     private final boolean ignoreGeneratedIndex;
 
     private static final int POOL_SIZE = 4;
+
     private static final FindState[] FIND_STATE_POOL = new FindState[POOL_SIZE];
 
     SubscriberMethodFinder(List<SubscriberInfoIndex> subscriberInfoIndexes, boolean strictMethodVerification,
@@ -58,7 +59,7 @@ class SubscriberMethodFinder {
             return subscriberMethods;
         }
 
-        if (ignoreGeneratedIndex) {
+        if (ignoreGeneratedIndex) {//判断是否忽略索引
             subscriberMethods = findUsingReflection(subscriberClass);
         } else {
             subscriberMethods = findUsingInfo(subscriberClass);
@@ -137,6 +138,11 @@ class SubscriberMethodFinder {
         return null;
     }
 
+    /***
+     * 通过返射查找注解标记的方法
+     * @param subscriberClass
+     * @return
+     */
     private List<SubscriberMethod> findUsingReflection(Class<?> subscriberClass) {
         FindState findState = prepareFindState();
         findState.initForSubscriber(subscriberClass);

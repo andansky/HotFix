@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 
 public class MainActivity extends BaseActivity {
@@ -20,6 +22,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
 //        String mdexPath=null;
 //        try {
 //            AssetManager manager=AssetManager.class.newInstance();
