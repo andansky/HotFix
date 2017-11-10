@@ -1,1 +1,1 @@
-include ':app', ':loglib', ':pluginsdk', ':plugin'
+include ':app', ':loglib', ':pluginsdk', ':plugin', ':EventBus'
