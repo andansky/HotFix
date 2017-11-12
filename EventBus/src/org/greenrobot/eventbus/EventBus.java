@@ -87,12 +87,7 @@ public class EventBus {
             synchronized (EventBus.class) {
                 //x线程1
                 if (defaultInstance == null) {
-
                     defaultInstance = new EventBus();
-                    //这个是拆分的，这个赋值不是原子性的，
-                    //mem = allocate();             //为单例对象分配内存空间.
-                    //instance = mem;               //注意，instance 引用现在是非空，但还未初始化,如果这时线程3执行，就会返回一个会初始化的对象，但是用了volatile修饰之后因为保证了可见性和有序性就能执行
-                    //ctorSingleton(instance);      //为单例对象通过instance调用构造函数
                 }
             }
         }

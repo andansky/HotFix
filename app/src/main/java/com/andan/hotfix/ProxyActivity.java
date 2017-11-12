@@ -23,7 +23,6 @@ public class ProxyActivity extends AppCompatActivity implements ActivityInterfac
     public final static String PROXIED_CLASS_NAME = "PROXIED_CLASS_NAME";
     public final static String EXTRA_APK_PATH = "EXTRA_APK_PATH";
 
-    private DexClassLoader classLoader;
     private ActivityInterface anInterface;
 
 
@@ -128,10 +127,9 @@ public class ProxyActivity extends AppCompatActivity implements ActivityInterfac
         }
 
         // dex文件的释放目录
-        File releasePath = getDir("dexs", 0);
-
+        File releasePath = getDir("dex", 0);
         // 类加载器
-        classLoader = new DexClassLoader(file.getAbsolutePath(), releasePath.getAbsolutePath(), null, getClassLoader());
+        DexClassLoader classLoader = new DexClassLoader(file.getAbsolutePath(), releasePath.getAbsolutePath(), null, getClassLoader());
         try {
             Class<?> classk=classLoader.loadClass(getIntent().getStringExtra(PROXIED_CLASS_NAME));
             anInterface= (ActivityInterface)classk.newInstance();
@@ -139,7 +137,7 @@ public class ProxyActivity extends AppCompatActivity implements ActivityInterfac
             method.setAccessible(true);
             method.invoke(anInterface,ProxyActivity.this);
         } catch (Exception e) {
-            L.e(e);
+            e.printStackTrace();
         }
     }
 }

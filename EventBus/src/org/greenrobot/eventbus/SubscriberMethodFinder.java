@@ -139,7 +139,7 @@ class SubscriberMethodFinder {
     }
 
     /***
-     * 通过返射查找注解标记的方法
+     * 通过反射查找注解标记过的方法
      * @param subscriberClass
      * @return
      */

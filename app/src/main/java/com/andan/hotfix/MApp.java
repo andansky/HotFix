@@ -7,4 +7,10 @@ import android.app.Application;
  */
 
 public class MApp extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        //hooke加载外部插件资源
+        InjectDex.init(this);
+    }
 }

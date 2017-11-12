@@ -1,19 +1,29 @@
 package com.andan.hotfix;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
+import sj.mblog.L;
 
 /**
  * Created by nongyudi on 2017/10/31.
  */
 
 public class InjectDex {
+    public static void init(Context context){
+        String pluginPath= Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator+"plugin-debug.apk";
+        File file=new File(pluginPath);
+        if(file.exists()){
+            hookResource(context);
+        }
+    }
     public static Object getField(Class<?> mClass,String fielName,Object object) throws NoSuchFieldException, IllegalAccessException {
         Field field=mClass.getDeclaredField(fielName);
         field.setAccessible(true);
@@ -68,5 +78,25 @@ public class InjectDex {
             }
         }
         return newArray;
+    }
+
+
+    public static void hookResource(Context context){
+        try {
+            Class<?> activityThreadClass=Class.forName("android.app.ActivityThread");
+            Method currentActivityThreadMethod=activityThreadClass.getDeclaredMethod("currentActivityThread");
+            currentActivityThreadMethod.setAccessible(true);
+            Object activityThread=currentActivityThreadMethod.invoke(null);
+
+            Field mInstrumentationField=activityThreadClass.getDeclaredField("mInstrumentation");
+            mInstrumentationField.setAccessible(true);
+            Instrumentation instrumentation= (Instrumentation) mInstrumentationField.get(activityThread);
+
+            Instrumentation proxy=new MInstrumentation(context,instrumentation);
+
+            mInstrumentationField.set(activityThread,proxy);
+        } catch (Exception e) {
+            L.e(e);
+        }
     }
 }
